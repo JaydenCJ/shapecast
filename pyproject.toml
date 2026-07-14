@@ -9,7 +9,7 @@ description = "Infer JSON Schema from example payloads, with per-field type and 
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "JaydenCJ" }]
+authors = [{ name = "JaydenCJ", email = "aisingioro.kiyon@gmail.com" }]
 keywords = ["json-schema", "schema-inference", "jsonl", "api-documentation", "data-profiling", "cli", "quicktype"]
 classifiers = [
     "Development Status :: 3 - Alpha",
