@@ -17,7 +17,7 @@ from __future__ import annotations
 import ipaddress
 import re
 import uuid
-from datetime import date, datetime, time
+from datetime import date, datetime
 from typing import Callable, Dict, List, Tuple
 
 # Matches the canonical 8-4-4-4-12 hex form only; uuid.UUID() alone is far
@@ -81,11 +81,18 @@ def is_time(value: str) -> bool:
     match = _TIME_RE.match(value)
     if not match:
         return False
-    try:
-        time.fromisoformat(value.replace("Z", "+00:00").replace("z", "+00:00"))
-        return True
-    except ValueError:
+    hour = int(value[0:2])
+    minute = int(value[3:5])
+    second = int(value[6:8])
+    if hour > 23 or minute > 59 or second > 59:
         return False
+    offset = match.group(2)
+    if offset and offset not in ("Z", "z"):
+        offset_hour = int(offset[1:3])
+        offset_minute = int(offset[4:6])
+        if offset_hour > 23 or offset_minute > 59:
+            return False
+    return True
 
 
 def is_email(value: str) -> bool:
